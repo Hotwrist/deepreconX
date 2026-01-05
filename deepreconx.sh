@@ -134,9 +134,8 @@ cat "$OUT"/*.txt | sort -u > "$OUT/all_subs.txt"
 ##############################################
 
 run "[+] Running alterx..."
-alterx -l "$OUT/all_subs.txt" -p perm4alterx.txt > "$OUT/perms.txt"
 
-alterx -l "$OUT/perms.txt" \
+alterx -l "$OUT/all_subs.txt" \
   -p "{word}.{base}" \
   -p "{word}-{base}" \
   -p "api.{word}.{base}" \
