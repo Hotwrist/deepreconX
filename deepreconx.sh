@@ -53,7 +53,7 @@ usage() {
 }
 
 ########################
-# Dependency Check
+# Dependency Check (some of you all might forget to install....lols)
 ########################
 deps=(subfinder chaos alterx dnsgen puredns dnsx httpx-toolkit nuclei)
 
@@ -113,7 +113,7 @@ run "🔍 Recon started on $DOMAIN"
 echo ""
 
 ##############################################
-# 1. Passive Enumeration
+# 1. Passive Enumeration (let's go passive...)
 ##############################################
 
 run "[+] Running subfinder..."
@@ -196,7 +196,7 @@ fi
 ##############################################
 
 echo ""
-echo -e "${GREEN}🎉 RECON COMPLETED${RESET}"
+echo -e "${GREEN}🎉 RECON COMPLETED! CONGRATULATIONS HACKER!${RESET}"
 echo -e "${CYAN}Results saved in:${RESET} $OUT"
 echo ""
 
