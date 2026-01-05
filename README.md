@@ -44,7 +44,17 @@ cd deepreconX
 chmod +x deepreconx.sh
 ```
 ---
+## 🔌 DNS Resolvers (Required for PureDNS)
 
+DeepReconX uses **PureDNS** for high-performance DNS resolution.
+
+You must provide a list of **trusted DNS resolvers** in a file named:
+
+```text
+resolvers.txt
+```
+which I have already provided.
+---
 ## 🚀 Usage
 ```bash
 ./deepreconx.sh example.com
