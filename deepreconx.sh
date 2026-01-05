@@ -5,7 +5,7 @@
 #  DeepReconX
 #  Aggressive Subdomain Enumeration & Validation Framework
 #
-#  Author: John Odey
+#  Author: John Ebinyi Odey
 #
 #  Disclaimer:
 #  This tool is intended for AUTHORIZED security testing,
@@ -161,7 +161,7 @@ cat "$OUT/alterx_candidates.txt" "$OUT/dnsgen.txt" | sort -u > "$OUT/mutations.t
 
 run "[+] Resolving with puredns..."
 cat "$OUT/all_subs.txt" "$OUT/mutations.txt" | sort -u > "$OUT/final_candidates.txt"
-puredns resolve "$OUT/final_candidates.txt" -r ~/resolvers.txt -w "$OUT/resolved.txt"
+puredns resolve "$OUT/final_candidates.txt" -r resolvers.txt -w "$OUT/resolved.txt"
 
 ##############################################
 # 5. DNS Info
