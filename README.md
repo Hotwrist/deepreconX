@@ -86,7 +86,9 @@ The author assumes no responsibility for misuse.
 
 ## 👤 Author
 
-John Odey
+```bash
+John Ebinyi Odey
 Offensive Security Researcher
 Internal Network & Web Application Penetration Tester
 C++ & Security Tool Developer
+```
