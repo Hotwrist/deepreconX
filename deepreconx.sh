@@ -137,18 +137,18 @@ run "[+] Running alterx..."
 alterx -l "$OUT/all_subs.txt" -p perm4alterx.txt > "$OUT/perms.txt"
 
 alterx -l "$OUT/perms.txt" \
-    -t "{word}.{base}" \
-    -t "{word}-{base}" \
-    -t "api.{word}.{base}" \
-    -t "dev.{word}.{base}" \
-    -t "test.{word}.{base}" \
-    -t "stage.{word}.{base}" \
-    -t "internal.{word}.{base}" \
-    -t "vpn.{word}.{base}" \
-    -t "corp.{word}.{base}" \
-    -t "v1.{word}.{base}" \
-    -t "v2.{word}.{base}" \
-    > "$OUT/alterx_candidates.txt"
+  -p "{word}.{base}" \
+  -p "{word}-{base}" \
+  -p "api.{word}.{base}" \
+  -p "dev.{word}.{base}" \
+  -p "test.{word}.{base}" \
+  -p "stage.{word}.{base}" \
+  -p "internal.{word}.{base}" \
+  -p "vpn.{word}.{base}" \
+  -p "corp.{word}.{base}" \
+  -p "v1.{word}.{base}" \
+  -p "v2.{word}.{base}" \
+  -o "$OUT/alterx_candidates.txt"
 
 run "[+] Running dnsgen..."
 dnsgen "$OUT/all_subs.txt" -w perm4alterx.txt > "$OUT/dnsgen.txt"
