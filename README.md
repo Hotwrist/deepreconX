@@ -48,12 +48,12 @@ chmod +x deepreconx.sh
 
 DeepReconX uses **PureDNS** for high-performance DNS resolution.
 
-You must provide a list of **trusted DNS resolvers** in a file named:
+You must provide a list of **trusted DNS resolvers** in a file (which I have already provided) named:
 
 ```text
 resolvers.txt
 ```
-which I have already provided.
+
 ---
 ## 🚀 Usage
 ```bash
