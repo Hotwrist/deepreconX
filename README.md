@@ -41,7 +41,7 @@ DeepReconX integrates the following open-source tools:
 ```bash
 git clone https://github.com/Hotwrist/deepreconX.git
 cd deepreconX
-chmod +x deepreconx.sh
+chmod +x deepreconX.sh
 ```
 ---
 ## 🔌 DNS Resolvers (Required for PureDNS)
@@ -57,16 +57,16 @@ resolvers.txt
 ---
 ## 🚀 Usage
 ```bash
-./deepreconx.sh example.com
+./deepreconX.sh example.com
 ```
 ### ⚡ Fast Mode (skip Nuclei)
 ```bash
-./deepreconx.sh example.com --fast
+./deepreconX.sh example.com --fast
 ```
 
 ### 🔇 Silent Mode
 ```bash
-./deepreconx.sh example.com --silent
+./deepreconX.sh example.com --silent
 ```
 
 ---
