@@ -76,7 +76,6 @@ output/example.com/
 ├── subfinder.txt
 ├── chaos.txt
 ├── all_subs.txt
-├── perms.txt
 ├── alterx_candidates.txt
 ├── dnsgen.txt
 ├── mutations.txt
