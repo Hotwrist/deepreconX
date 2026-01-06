@@ -143,7 +143,32 @@ alterx -l "$OUT/all_subs.txt" -p '{{word}}.{{suffix}}' >> "$OUT/alterx_candidate
 run "[+] Running dnsgen..."
 dnsgen "$OUT/all_subs.txt" -w perm4alterx.txt > "$OUT/dnsgen.txt"
 
-cat "$OUT/alterx_candidates.txt" "$OUT/dnsgen.txt" | sort -u > "$OUT/mutations.txt"
+#================================================================
+#words=(api dev test stage internal admin)
+# Or.. i thought of making use of a file for it, perm4alterx.txt. You can make use of your own
+# words by copying and pasting them in the perm4alterx.txt file.
+words=$(cat perm4alterx.txt)
+while read -r sub; do
+  for w in "${words[@]}"; do
+
+    if [[ "$sub" == "*-"* ]]; then
+      # *-john.com → api-john.com
+      echo "${sub/\*/$w}"
+
+    else
+      # *john.com → api-john.com AND api.john.com
+      base="${sub#\*}"
+
+      echo "$w-$base"
+      echo "$w.$base"
+    fi
+
+  done
+done < "$OUT/dnsgen.txt" | sort -u > "$OUT/dnsgen_candidates.txt"
+#================================================================
+
+
+cat "$OUT/alterx_candidates.txt" "$OUT/dnsgen_candidates.txt" | sort -u > "$OUT/mutations.txt"
 
 ##############################################
 # 4. DNS Resolution
@@ -165,10 +190,10 @@ dnsx -l "$OUT/resolved.txt" -resp -a -cname -silent > "$OUT/dns_info.txt"
 ##############################################
 
 run "[+] Running httpx..."
-httpx-toolkit -l "$OUT/resolved.txt" -probe -status-code -location -cl \
+httpx-toolkit -l "$OUT/final_candidates.txt" -probe -status-code -td -location -cl \
     | grep -E "200|301|302|401|403|404|500" \
     > "$OUT/httpx_live.txt"
-
+    
 ##############################################
 # 7. Nuclei
 ##############################################
