@@ -53,7 +53,7 @@ usage() {
 }
 
 ########################
-# Dependency Check (some of you all might forget to install....lols)
+# Dependency Check
 ########################
 deps=(subfinder chaos alterx dnsgen puredns dnsx httpx-toolkit nuclei)
 
@@ -113,7 +113,7 @@ run "🔍 Recon started on $DOMAIN"
 echo ""
 
 ##############################################
-# 1. Passive Enumeration (let's go passive...)
+# 1. Passive Enumeration
 ##############################################
 
 run "[+] Running subfinder..."
@@ -134,20 +134,11 @@ cat "$OUT"/*.txt | sort -u > "$OUT/all_subs.txt"
 ##############################################
 
 run "[+] Running alterx..."
-
-alterx -l "$OUT/all_subs.txt" \
-  -p "{word}.{base}" \
-  -p "{word}-{base}" \
-  -p "api.{word}.{base}" \
-  -p "dev.{word}.{base}" \
-  -p "test.{word}.{base}" \
-  -p "stage.{word}.{base}" \
-  -p "internal.{word}.{base}" \
-  -p "vpn.{word}.{base}" \
-  -p "corp.{word}.{base}" \
-  -p "v1.{word}.{base}" \
-  -p "v2.{word}.{base}" \
-  -o "$OUT/alterx_candidates.txt"
+alterx -l "$OUT/all_subs.txt" -p '{{sub}}-{{word}}.{{suffix}}' >> "$OUT/alterx_candidates.txt"
+alterx -l "$OUT/all_subs.txt" -p '{{word}}-{{sub}}.{{suffix}}' >> "$OUT/alterx_candidates.txt"
+alterx -l "$OUT/all_subs.txt" -p '{{word}}.{{sub}}.{{suffix}}' >> "$OUT/alterx_candidates.txt"
+alterx -l "$OUT/all_subs.txt" -p '{{sub}}.{{word}}.{{suffix}}' >> "$OUT/alterx_candidates.txt"
+alterx -l "$OUT/all_subs.txt" -p '{{word}}.{{suffix}}' >> "$OUT/alterx_candidates.txt"
 
 run "[+] Running dnsgen..."
 dnsgen "$OUT/all_subs.txt" -w perm4alterx.txt > "$OUT/dnsgen.txt"
@@ -160,7 +151,7 @@ cat "$OUT/alterx_candidates.txt" "$OUT/dnsgen.txt" | sort -u > "$OUT/mutations.t
 
 run "[+] Resolving with puredns..."
 cat "$OUT/all_subs.txt" "$OUT/mutations.txt" | sort -u > "$OUT/final_candidates.txt"
-puredns resolve "$OUT/final_candidates.txt" -r resolvers.txt -w "$OUT/resolved.txt"
+puredns resolve "$OUT/final_candidates.txt" -r ~/resolvers.txt -w "$OUT/resolved.txt"
 
 ##############################################
 # 5. DNS Info
@@ -195,7 +186,6 @@ fi
 ##############################################
 
 echo ""
-echo -e "${GREEN}🎉 RECON COMPLETED! CONGRATULATIONS HACKER!${RESET}"
+echo -e "${GREEN}🎉 RECON COMPLETED${RESET}"
 echo -e "${CYAN}Results saved in:${RESET} $OUT"
 echo ""
-
