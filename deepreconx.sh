@@ -147,24 +147,33 @@ dnsgen "$OUT/all_subs.txt" -w perm4alterx.txt > "$OUT/dnsgen.txt"
 #words=(api dev test stage internal admin)
 # Or.. i thought of making use of a file for it, perm4alterx.txt. You can make use of your own
 # words by copying and pasting them in the perm4alterx.txt file.
-words=$(cat perm4alterx.txt)
+words=(api dev test stage internal admin)
+
 while read -r sub; do
   for w in "${words[@]}"; do
 
-    if [[ "$sub" == "*-"* ]]; then
-      # *-john.com → api-john.com
+    # Case 1: * is a full label (*.domain.com or label.*.domain.com)
+    if [[ "$sub" == *".*."* ]] || [[ "$sub" == "*."* ]]; then
+      echo "${sub//\*/$w}"
+
+    # Case 2: *-label.domain.com
+    elif [[ "$sub" == "*-"* ]]; then
       echo "${sub/\*/$w}"
 
-    else
-      # *john.com → api-john.com AND api.john.com
-      base="${sub#\*}"
+    # Case 3: label-*.domain.com
+    elif [[ "$sub" == *"-*"* ]]; then
+      echo "${sub/\*/$w}"
 
-      echo "$w-$base"
-      echo "$w.$base"
+    # Case 4: fallback (rare but safe)
+    else
+      echo "${sub/\*/$w}"
     fi
 
   done
-done < "$OUT/dnsgen.txt" | sort -u > "$OUT/dnsgen_candidates.txt"
+done < "$OUT/dnsgen.txt" \
+| sed 's/\.\./\./g; s/-\././g; s/\.-/./g' \
+| sort -u > "$OUT/dnsgen_candidates.txt"
+
 #================================================================
 
 
